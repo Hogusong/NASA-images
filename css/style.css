@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  background: rgb(245, 244, 233);
+  text-align: center;
+}
+
+h1 {
+  padding-top: 40px;
+}
+
+#big-image {
+  margin: auto;
+  margin-top: 20px;
+  width: 480px;
+  min-height: 480px;
+}
+
+p {
+  margin-top: 8px;
+}
+
+#url {
+  width: 600px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.buttons {
+  position: absolute;
+  top: 600px;
+  width: 100vw;
+}
+
+#previous, #next {
+  padding: 5px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+#previous {
+  margin-left: 9vw;
+  float: left;
+}
+
+#next {
+  float: right;
+  margin-right: 9vw;
+}
+
+#previous ion-icon {
+  margin-right: 8px;
+}
+
+#next ion-icon {
+  margin-left: 8px;
+}
+
+#previous:hover, #next:hover {  
+  color: orangered;
+  border: 2px orangered solid;
+}
+
+ul {
+  display: grid;
+  padding: 20px;
+  grid-template-columns: repeat(10, 1fr);
+  grid-gap: 6px;
+  list-style: none;
+}
+
+ul img {
+  width: 9vw;
+}
+
+footer {
+  position: fixed;
+  background: gray;
+  color: black;
+  width: 100vw;
+  margin-top: 20px;
+  padding: 18px 0;
+  letter-spacing: 1.5;
+  font-size: 24px;
+  text-align: center;
+}
+
+footer span {  color: orangered;  font-weight: bold; }
