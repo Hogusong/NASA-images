@@ -4,8 +4,18 @@ var main_url = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?
 
 // set localStorage
 localStorage.setItem("start", '0');
-
+// initalize the conunt of images to display
 var displayCount = 10;
+var images;
+
+var DOMstring = {
+  previous: document.getElementById('previous'),
+  next: document.getElementById('next'),
+  images: document.querySelector('.more-images'),
+  list: document.querySelector('.image-list')
+}
+
+setEventListener();
 
 // get Response of main data in JSON type.
 var xhr = new XMLHttpRequest();
@@ -21,10 +31,10 @@ xhr.send();
 
 // load images
 function loadMain(res) {
-  let images = res.photos;
+  images = res.photos;
   localStorage.setItem("size", images.length.toString());
   loadBigImage(images[0]);
-  loadSmallImages(images, 0);
+  loadSmallImages();
 }
 
 function loadBigImage(image) {
@@ -35,21 +45,54 @@ function loadBigImage(image) {
   document.getElementById('url').textContent = `url : ${image.img_src}`;
 }
 
-function loadSmallImages(images, start) {
+function loadSmallImages() {
+  let start = parseInt(localStorage.getItem('start'));
   let arraySize = parseInt(localStorage.getItem("size"));
   let end = (start+displayCount >= arraySize) ? arraySize :
                                                 start+displayCount ;
-  if (end < arraySize) {
-    localStorage.setItem("start", end.toString());
-  }
-
-  let DOMimages = document.querySelector('.image-list');
+  loadBigImage(images[start]);
   for (let i=start; i < end; i++ ){
-    let DOMli = document.createElement('li');
-    DOMli.innerHTML = `<img src="${images[i].img_src}" />`
-    DOMimages.appendChild(DOMli);
+    let e_li = document.createElement('li');
+    e_li.innerHTML = `<img src="${images[i].img_src}" />`
+    e_li.addEventListener('click', function() {
+      loadBigImage(images[i]);
+    })
+    DOMstring.list.appendChild(e_li);
   }
-  document.querySelector('.more-images').style.display = 'block';
+  DOMstring.images.style.display = 'block';
+  setButtonDisplay(start, arraySize);
 }
 
+function setButtonDisplay(start, arraySize) {
+  let option = (start >= displayCount) ? 'block' : 'none'
+  DOMstring.previous.style.display = option;
+  option = (start+displayCount < arraySize) ? 'block' : 'none'
+  DOMstring.next.style.display = option;     
+}
 
+function setEventListener() {
+  DOMstring.previous.addEventListener('click', function() {
+    removeAllChildren(DOMstring.list);
+    let start = parseInt(localStorage.getItem('start'));
+    console.log('before:',localStorage.getItem('start'))
+    localStorage.setItem('start', (start-displayCount).toString());
+    console.log('after', localStorage.getItem('start'))
+    loadSmallImages();
+  })
+
+  DOMstring.next.addEventListener('click', function() {
+    removeAllChildren(DOMstring.list);
+    let start = parseInt(localStorage.getItem('start'));
+    console.log('before:',localStorage.getItem('start'))
+    localStorage.setItem('start', (start+displayCount).toString());
+    console.log('after', localStorage.getItem('start'))
+    loadSmallImages();
+  })
+}
+
+function removeAllChildren(myNode) {
+  // let myNode = document.getElementById(id);
+  while (myNode.firstChild) {
+    myNode.removeChild(myNode.firstChild);
+  }
+}

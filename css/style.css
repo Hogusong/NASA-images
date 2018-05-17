@@ -17,7 +17,7 @@ h1 {
   margin: auto;
   margin-top: 20px;
   width: 480px;
-  min-height: 480px;
+  height: 480px;
 }
 
 p {
@@ -66,9 +66,13 @@ p {
   border: 2px orangered solid;
 }
 
+#previous:focus, #next:focus {  
+  outline: none;
+}
+
 ul {
   display: grid;
-  padding: 20px;
+  padding: 20px 15px;
   grid-template-columns: repeat(10, 1fr);
   grid-gap: 6px;
   list-style: none;
@@ -76,6 +80,10 @@ ul {
 
 ul img {
   width: 9vw;
+}
+
+ul img:hover {
+  border: 1px greenyellow solid;
 }
 
 footer {
@@ -91,3 +99,12 @@ footer {
 }
 
 footer span {  color: orangered;  font-weight: bold; }
+
+@media(max-width: 720px) {
+  ul {
+    grid-template-columns: repeat(5, 1fr)
+  }
+
+  ul img {
+    width: 16vw;
+  }}
