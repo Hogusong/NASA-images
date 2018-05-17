@@ -6,3 +6,5 @@ To practice
   - use 'DOM localStrage'
   - use 'template strings' to display.
   - use 'eventHandler' to control size of image and pages.
+  
+  If you want to take a look go here https://hogusong.github.io/NASA-images/
